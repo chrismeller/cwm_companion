@@ -16,8 +16,12 @@
 	<div id="footer" class="span-24 last" role="contentinfo">
 		<div id="colophon">
 		
-			<div id="copyright" class="span-15">
+			<div id="copyright" class="span-22">
 				<p>Presented by Chris Meller. Licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/us/" title="Creative Commons Attribution 3.0 United States License">Creative Commons</a> license.</p>
+			</div>
+			
+			<div id="the-moose" class="span-2 last">
+				<img src="<?php echo get_bloginfo('template_directory'); ?>/images/the_moose.png" alt="Moose" title="Mooses <3!" />
 			</div>
 
 		</div><!-- #colophon -->
