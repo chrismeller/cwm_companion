@@ -43,7 +43,19 @@
 	<![endif]-->
 	
 	<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
+	
+	<style type="text/css">
+	
+		#banner {
+			background: url('<?php header_image(); ?>') no-repeat;
+			width: <?php echo HEADER_IMAGE_WIDTH - 2; ?>px;
+			height: <?php echo HEADER_IMAGE_HEIGHT; ?>px;
+		}
+	
+	</style>
+	
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
+		
 <?php
 	/* We add some JavaScript to pages with the comment form
 	 * to support sites with threaded comments (when in use).
@@ -87,13 +99,17 @@
 			</div> <?php /* div#menu */ ?>
 			
 			<div id="search" class="prepend-1 span-5 last">
-				<input type="search" placeholder="Search" />
+				<div class="left"></div>
+				<input type="text" name="s" value="<?php echo chrismkii_search(); ?>" />
+				<div class="right"></div>
 			</div>
 			
 		</div> <?php /* div#header */ ?>
 		
 		<div id="banner" class="span-24 last">
-			<img src="<?php header_image(); ?>" width="<?php echo HEADER_IMAGE_WIDTH; ?>" height="<?php echo HEADER_IMAGE_HEIGHT; ?>" alt="" />
+			<cite>
+				<a href="http://creativecommons.org/licenses/by/3.0/us/" class="license_cc">Creative Commons License</a> on <a href="http://www.flickr.com/photos/mellertime/4485964682/">Flickr</a>
+			</cite>
 		</div>
 		
 		<div id="main" class="span-24 last">

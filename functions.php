@@ -76,7 +76,7 @@ function chrismkii_setup() {
 	add_editor_style();
 
 	// This theme uses post thumbnails
-	add_theme_support( 'post-thumbnails' );
+	//add_theme_support( 'post-thumbnails' );
 
 	// Add default posts and comments RSS feed links to head
 	add_theme_support( 'automatic-feed-links' );
@@ -384,7 +384,7 @@ function twentyten_posted_on() {
 			esc_attr( get_the_time() ),
 			get_the_date()
 		),
-		sprintf( '</span> <span class="author vcard"><a class="url fn n" href="%1$s" title="%2$s">%3$s</a></span>',
+		sprintf( '</span> <span class="author vcard"><a class="url fn n" href="%1$s" title="%2$s">%3$s</a></span>.',
 			get_author_posts_url( get_the_author_meta( 'ID' ) ),
 			sprintf( esc_attr__( 'View all posts by %s', 'twentyten' ), get_the_author() ),
 			get_the_author()
@@ -417,3 +417,81 @@ function twentyten_posted_in() {
 	);
 }
 endif;
+
+function chrismkii_archives ( ) {
+	
+	// cause wordpress to cache the raw array so we can snag it
+	wp_get_archives( 'type=monthly&show_post_count=true&limit=8&echo=0' );
+	
+	$archives = wp_cache_get( 'wp_get_archives' , 'general');
+	
+	// we don't care what the md5 hash is, just get the first element - that holds our values
+	$keys = array_keys( $archives );
+	$archives = $archives[ $keys[0] ];
+	
+	$i = 1;
+	foreach ( $archives as $archive ) {
+		
+		$url = get_month_link( $archive->year, $archive->month );
+		
+		if ( $i == 1 ) {
+			$class = 'class="first"';
+		}
+		else if ( $i == count( $archives ) ) {
+			$class = 'class="last"';
+		}
+		else {
+			$class = '';
+		}
+		
+		$month = mktime( 0, 0, 0, $archive->month );
+		$month = date('F', $month);
+		
+		$text = $month . ', ' . $archive->year;
+
+		// get_archives_link() won't let you add a class to the LI element... god dammit!
+		echo '<li ' . $class . '><a href="' . esc_url( $url ) . '" title="' . esc_attr( $text ) . '">' . $text . '</a><span class="post-count">' . $archive->posts . '</span></li>';
+		
+		$i++;
+		
+	}
+	
+}
+
+function chrismkii_search ( ) {
+	
+	$s = get_search_query();
+	
+	if ( !$s ) {
+		$s = 'Search';
+	}
+	
+	return $s;
+	
+}
+
+function chrismkii_archives_widget ( $args ) {
+	
+	echo '<li id="archives" class="widget-container">';
+	echo '<div class="wrap">';
+	
+	chrismkii_archives();
+	
+	echo '</div>';
+	echo '</li>';
+	
+}
+
+function chrismkii_init ( ) {
+	
+	wp_enqueue_script( 'chrismkii_main', get_bloginfo('template_directory') . '/js/main.js', array('jquery'), false, true );
+	
+	//wp_enqueue_script( 'chrismkii_main' );
+	
+	if ( function_exists('wp_register_sidebar_widget') ) {
+		wp_register_sidebar_widget( 'chrismkii_archives', 'Chris mk II Archives', 'chrismkii_archives_widget' );
+	}
+	
+}
+
+add_action( 'init', 'chrismkii_init' );

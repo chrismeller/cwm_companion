@@ -10,22 +10,20 @@
  * @since Twenty Ten 1.0
  */
 ?>
-
-		</div><?php /* div#content */ ?>
 		
 	</div><?php /* div#main */ ?>
 
 	<div id="footer" class="span-24 last" role="contentinfo">
 		<div id="colophon">
 		
-			<div id="copyright" class="span-5">
+			<div id="copyright" class="span-15">
 				<p>Presented by Chris Meller. Licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/us/" title="Creative Commons Attribution 3.0 United States License">Creative Commons</a> license.</p>
 			</div>
 
 		</div><!-- #colophon -->
 	</div><!-- #footer -->
 
-</div><!-- #wrapper -->
+</div><?php /* div#page */ ?>
 
 <?php
 	/* Always have wp_footer() just before the closing </body>
