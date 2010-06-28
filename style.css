@@ -206,15 +206,18 @@ body {
 	color: #666666;
 }
 
-#content .entry-content {
+#content .entry-content,
+#content .entry-summary {
 	font-size: 1.2em;
 }
 
-#content .entry-content a {
+#content .entry-content a,
+#content .entry-summary a {
 	color: #3a6c93;
 }
 
-#content .entry-content a:hover {
+#content .entry-content a:hover,
+#content .entry-summary a:hover {
 	color: #1b537f;
 }
 
@@ -223,6 +226,10 @@ body {
 	margin-bottom: 2em;
 	
 	border-bottom: 1px solid #efefef;
+}
+
+#content .post.last {
+	border-bottom: none;
 }
 
 #primary {

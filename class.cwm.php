@@ -12,6 +12,14 @@
 			
 		}
 		
+		public static function count_posts ( ) {
+			
+			global $wp_query;
+			
+			return $wp_query->post_count;
+			
+		}
+		
 		public static function archives ( $args = array() ) {
 			
 			echo $args['before_widget'];
