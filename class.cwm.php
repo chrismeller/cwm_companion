@@ -7,18 +7,18 @@
 			wp_enqueue_script( 'chrismkii_main', get_bloginfo('template_directory') . '/js/main.js', array('jquery'), false, true );
 
 			if ( function_exists('wp_register_sidebar_widget') ) {
-				wp_register_sidebar_widget( 'chrismkii_archives', 'Chris mk II Archives', array( 'CWM', 'archives_widget' ) );
+				wp_register_sidebar_widget( 'archives', 'Chris mk II: Archives', array( 'CWM', 'archives' ) );
 			}
 			
 		}
 		
-		public function archives_widget ( $args ) {
+		public static function archives ( $args = array() ) {
 			
+			echo $args['before_widget'];
 			
+			echo $args['before_title'] . 'Archives' . $args['after_title'];
 			
-		}
-		
-		public function archives ( ) {
+			echo '<ul>';
 
 			// cause wordpress to cache the raw array so we can snag it
 			wp_get_archives( 'type=monthly&show_post_count=true&limit=8&echo=0' );
@@ -28,7 +28,7 @@
 			// we don't care what the md5 hash is, just get the first element - that holds our values
 			$keys = array_keys( $archives );
 			$archives = $archives[ $keys[0] ];
-
+			
 			$i = 1;
 			foreach ( $archives as $archive ) {
 
@@ -55,6 +55,12 @@
 				$i++;
 
 			}
+			
+			echo '</ul>';
+			
+			echo '<a href="' . home_url( '/archives' ) . '" class="more-archives" title="More archives...">More archives...</a>';
+			
+			echo $args['after_widget'];
 
 		}
 		

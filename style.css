@@ -246,6 +246,8 @@ body {
 	
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
+	
+	margin-bottom: 1em;
 }
 
 h3.widget-title {
@@ -254,6 +256,12 @@ h3.widget-title {
 	
 	font-size: 1.2em;
 	margin-bottom: 0.5em;
+}
+
+#archives ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
 
 #archives li {

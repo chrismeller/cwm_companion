@@ -104,7 +104,7 @@ function chrismkii_setup() {
 	// Your changeable header business starts here
 	define( 'HEADER_TEXTCOLOR', '' );
 	// No CSS, just IMG call. The %s is a placeholder for the theme template directory URI.
-	define( 'HEADER_IMAGE', '%s/images/headers/path.jpg' );
+	define( 'HEADER_IMAGE', '%s/images/headers/header_sign.jpg' );
 
 	// The height and width of your custom header. You can hook into the theme's own filters to change these values.
 	// Add a filter to twentyten_header_image_width and twentyten_header_image_height to change these values.
@@ -295,8 +295,8 @@ function chrismkii_widgets_init() {
 		'name' => __( 'Primary Widget Area', 'chrismkii' ),
 		'id' => 'primary-widget-area',
 		'description' => __( 'The primary widget area', 'chrismkii' ),
-		'before_widget' => '<li id="%1$s" class="widget-container %2$s">',
-		'after_widget' => '</li>',
+		'before_widget' => '<div id="%1$s" class="widget-container %2$s"><div class="wrap">',
+		'after_widget' => '</div></div>',
 		'before_title' => '<h3 class="widget-title">',
 		'after_title' => '</h3>',
 	) );
@@ -366,78 +366,8 @@ function twentyten_posted_in() {
 }
 endif;
 
-function chrismkii_archives ( ) {
-	
-	// cause wordpress to cache the raw array so we can snag it
-	wp_get_archives( 'type=monthly&show_post_count=true&limit=8&echo=0' );
-	
-	$archives = wp_cache_get( 'wp_get_archives' , 'general');
-	
-	// we don't care what the md5 hash is, just get the first element - that holds our values
-	$keys = array_keys( $archives );
-	$archives = $archives[ $keys[0] ];
-	
-	$i = 1;
-	foreach ( $archives as $archive ) {
-		
-		$url = get_month_link( $archive->year, $archive->month );
-		
-		if ( $i == 1 ) {
-			$class = 'class="first"';
-		}
-		else if ( $i == count( $archives ) ) {
-			$class = 'class="last"';
-		}
-		else {
-			$class = '';
-		}
-		
-		$month = mktime( 0, 0, 0, $archive->month );
-		$month = date('F', $month);
-		
-		$text = $month . ', ' . $archive->year;
 
-		// get_archives_link() won't let you add a class to the LI element... god dammit!
-		echo '<li ' . $class . '><a href="' . esc_url( $url ) . '" title="' . esc_attr( $text ) . '">' . $text . '</a><span class="post-count">' . $archive->posts . '</span></li>';
-		
-		$i++;
-		
-	}
-	
-}
 
-function chrismkii_search ( ) {
-	
-	$s = get_search_query();
-	
-	if ( !$s ) {
-		$s = 'Search';
-	}
-	
-	return $s;
-	
-}
 
-function chrismkii_archives_widget ( $args ) {
-	
-	echo '<li id="archives" class="widget-container">';
-	echo '<div class="wrap">';
-	
-	chrismkii_archives();
-	
-	echo '</div>';
-	echo '</li>';
-	
-}
 
-function chrismkii_init ( ) {
-	
-	wp_enqueue_script( 'chrismkii_main', get_bloginfo('template_directory') . '/js/main.js', array('jquery'), false, true );
-	
-	if ( function_exists('wp_register_sidebar_widget') ) {
-		wp_register_sidebar_widget( 'chrismkii_archives', 'Chris mk II Archives', 'chrismkii_archives_widget' );
-	}
-	
-}
 
-add_action( 'init', 'chrismkii_init' );

@@ -9,13 +9,37 @@
 ?>
 
 <div id="primary" class="widget-area span-6 last" role="complementary">
+	
+	<?php
+	
+		if ( !dynamic_sidebar( 'primary-widget-area' ) ) {
+			
+			?>
+			
+				<div id="not-configured" class="widget-container">
+					<div class="wrap">
+						Configure some widgets!
+					</div>
+				</div>
+			
+			<?php
+			
+		}
+	
+	
+	?>
+	
+</div>
+
+<?php return; ?>
+	
 	<div id="archives" class="widget-container">
 		<div class="wrap">
 			<h3 class="widget-title">Archives</h3>
 			<ul>
 				<?php
 					
-					chrismkii_archives();
+					echo 'bar';
 					
 				?>
 			</ul>
