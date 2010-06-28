@@ -49,17 +49,21 @@
 <?php while ( have_posts() ) : the_post(); ?>
 
 <?php
-
+	
+	// blank out the class
+	$class = array();
+	
+	// this approach lets us have a post with both first and last classes
 	if ( $i == 1 ) {
-		$class = 'first';
+		$class[] = 'first';
 	}
-	else if ( $i == CWM::count_posts() ) {
-		$class = 'last';
+	
+	if ( $i == CWM::count_posts() ) {
+		$class[] = 'last';
 	}
-	else {
-		$class = '';
-	}
-
+	
+	$class = implode( ' ', $class );
+	
 ?>
 
 <?php /* How to display posts in the Gallery category. */ ?>
