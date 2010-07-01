@@ -87,7 +87,7 @@
 			
 			echo $args['before_widget'];
 			
-			echo $args['before_title'] . 'Flickr' . $args['after_title'];
+			echo $args['before_title'] . 'Recent Photos' . $args['after_title'];
 			
 			echo '<ul>';
 			
