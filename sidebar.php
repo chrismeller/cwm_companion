@@ -8,7 +8,7 @@
  */
 ?>
 
-<div id="primary" class="widget-area span-6 last" role="complementary">
+<div id="sidebar" class="widget-area span-6 last" role="complementary">
 	
 	<?php
 	

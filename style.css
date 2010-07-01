@@ -86,6 +86,14 @@ body {
 	color: #333333;
 }
 
+#header #search #searchsubmit {
+	display: none;
+}
+
+#header #search label.screen-reader-text {
+	display: none;
+}
+
 #site-title a {
 	display: block;
 	width: 284px;
@@ -211,13 +219,11 @@ body {
 	font-size: 1.2em;
 }
 
-#content .entry-content a,
-#content .entry-summary a {
+#content a {
 	color: #3a6c93;
 }
 
-#content .entry-content a:hover,
-#content .entry-summary a:hover {
+#content a:hover {
 	color: #1b537f;
 }
 
@@ -232,8 +238,11 @@ body {
 	border-bottom: none;
 }
 
-#primary {
+#sidebar {
 	width: 228px;
+	
+	/* allow room for ze moose! */
+	margin-bottom: 75px;
 }
 
 .widget-area {
@@ -312,12 +321,12 @@ h3.widget-title {
 	-moz-user-select: none;
 }
 
-#archives a {
+#sidebar a {
 	color: #3a6c93;
 	text-decoration: none;
 }
 
-#archives a:hover {
+#sidebar a:hover {
 	text-decoration: underline;
 }
 

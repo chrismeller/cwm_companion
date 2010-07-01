@@ -99,9 +99,7 @@
 			</div> <?php /* div#menu */ ?>
 			
 			<div id="search" class="prepend-1 span-5 last">
-				<div class="left"></div>
-				<input type="text" name="s" value="<?php echo CWM::search(); ?>" />
-				<div class="right"></div>
+				<?php get_search_form(); ?>
 			</div>
 			
 		</div> <?php /* div#header */ ?>

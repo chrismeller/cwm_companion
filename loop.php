@@ -105,7 +105,7 @@
 <?php /* How to display posts in the asides category */ ?>
 
 	<?php elseif ( in_category( _x('asides', 'asides category slug', 'twentyten') ) ) : ?>
-		<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+		<div id="post-<?php the_ID(); ?>" <?php post_class($class); ?>>
 
 		<?php if ( is_archive() || is_search() ) : // Display excerpts for archives and search. ?>
 			<div class="entry-summary">
