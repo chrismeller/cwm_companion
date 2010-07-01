@@ -93,6 +93,7 @@
 			
 			foreach ( $items as $item ) {
 				echo '<li><a href="' . esc_url( $item['link'] ) . '" title="' . esc_attr( $item['title'] ) . '"><img src="' . esc_url( $item['thumbnail'] ) . '" alt="' . esc_attr( $item['title'] ) . '" /></a>';
+				echo '</li>';
 			}
 			
 			echo '</ul>';
