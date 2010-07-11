@@ -106,7 +106,7 @@
 		
 		<div id="banner" class="span-24 last">
 			<cite>
-				<a href="http://creativecommons.org/licenses/by/3.0/us/" class="license_cc">Creative Commons License</a> on <a href="http://www.flickr.com/photos/mellertime/4485964682/">Flickr</a>
+				<a href="http://creativecommons.org/licenses/by/3.0/us/" class="license_cc">Creative Commons License</a> on <a href="<?php echo HEADER_IMAGE_FLICKR; ?>">Flickr</a>
 			</cite>
 		</div>
 		

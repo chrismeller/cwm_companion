@@ -100,6 +100,31 @@ function chrismkii_setup() {
 
 	// This theme allows users to set a custom background
 	add_custom_background();
+	
+	$headers = array(
+		array(
+			'img' => 'images/headers/header_sign.jpg',
+			'flickr' => 'http://www.flickr.com/photos/mellertime/4485964682/',
+			'width' => 950,
+			'height' => 140,
+		),
+		array(
+			'img' => 'images/headers/header_duckies.jpg',
+			'flickr' => 'http://www.flickr.com/photos/mellertime/4710923546/',
+			'width' => 950,
+			'height' => 250,
+		),
+	);
+	
+	// pick a header
+	$header = $headers[ mt_rand( 0, count( $headers ) - 1 ) ];
+	
+	define( 'HEADER_IMAGE', '%s/' . $header['img'] );
+	define( 'HEADER_IMAGE_WIDTH', $header['width'] );
+	define( 'HEADER_IMAGE_HEIGHT', $header['height'] );
+	define( 'HEADER_IMAGE_FLICKR', $header['flickr'] );
+	
+	/*
 
 	// Your changeable header business starts here
 	define( 'HEADER_TEXTCOLOR', '' );
@@ -122,6 +147,8 @@ function chrismkii_setup() {
 	// Add a way for the custom header to be styled in the admin panel that controls
 	// custom headers. See twentyten_admin_header_style(), below.
 	add_custom_image_header( '', 'chrismkii_admin_header_style' );
+	
+	*/
 
 	// ... and thus ends the changeable header business.
 	
