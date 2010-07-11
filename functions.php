@@ -114,6 +114,12 @@ function chrismkii_setup() {
 			'width' => 950,
 			'height' => 250,
 		),
+		array(
+			'img' => 'images/headers/header_pier.jpg',
+			'flickr' => 'http://www.flickr.com/photos/mellertime/4485317853/',
+			'width' => 950,
+			'height' => 250,
+		),
 	);
 	
 	// pick a header
