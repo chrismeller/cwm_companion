@@ -120,12 +120,12 @@ function chrismkii_setup() {
 			'width' => 950,
 			'height' => 250,
 		),
-		array(
+	/*	array(
 			'img' => 'images/headers/header_lake.jpg',
 			'flickr' => 'http://www.flickr.com/photos/mellertime/3576628927/',
 			'width' => 950,
 			'height' => 250,
-		),
+		), */
 	);
 	
 	// pick a header
