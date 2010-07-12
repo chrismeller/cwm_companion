@@ -106,7 +106,7 @@ function chrismkii_setup() {
 			'img' => 'images/headers/header_sign.jpg',
 			'flickr' => 'http://www.flickr.com/photos/mellertime/4485964682/',
 			'width' => 950,
-			'height' => 140,
+			'height' => 250,
 		),
 		array(
 			'img' => 'images/headers/header_duckies.jpg',
