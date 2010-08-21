@@ -44,17 +44,12 @@
 	
 	<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
 	
-	<style type="text/css">
-	
-		#banner {
-			background: url('<?php header_image(); ?>') no-repeat;
-			width: <?php echo HEADER_IMAGE_WIDTH - 2; ?>px;
-			height: <?php echo HEADER_IMAGE_HEIGHT; ?>px;
-		}
-	
-	</style>
-	
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
+	
+	<script type="text/javascript">
+		var CWM = {}
+		CWM.template_directory = '<?php echo bloginfo('template_directory'); ?>';
+	</script>
 		
 <?php
 	/* We add some JavaScript to pages with the comment form
@@ -106,7 +101,7 @@
 		
 		<div id="banner" class="span-24 last">
 			<cite>
-				<a href="http://creativecommons.org/licenses/by/3.0/us/" class="license_cc">Creative Commons License</a> on <a href="<?php echo HEADER_IMAGE_FLICKR; ?>">Flickr</a>
+				<a href="http://creativecommons.org/licenses/by/3.0/us/" class="license_cc">Creative Commons License</a> on <a href="#" class="flickr_link">Flickr</a>
 			</cite>
 		</div>
 		
