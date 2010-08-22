@@ -37,6 +37,12 @@
 			'width' => 950,
 			'height' => 250,
 		),
+		array(
+			'img' => 'images/headers/header_waves.jpg',
+			'flickr' => 'http://www.flickr.com/photos/mellertime/4485971102/',
+			'width' => 950,
+			'height' => 250,
+		),
 	);
 	
 	// pick a header
