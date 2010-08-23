@@ -79,6 +79,24 @@
 			'width' => 950,
 			'height' => 250,
 		),
+		array(
+			'img' => 'images/headers/header_clouds.jpg',
+			'flickr' => 'http://www.flickr.com/photos/mellertime/3577443928/',
+			'width' => 950,
+			'height' => 250,
+		),
+		array(
+			'img' => 'images/headers/header_mountain_road.jpg',
+			'flickr' => 'http://www.flickr.com/photos/mellertime/3576635601/',
+			'width' => 950,
+			'height' => 250,
+		),
+		array(
+			'img' => 'images/headers/header_clouds2.jpg',
+			'flickr' => 'http://www.flickr.com/photos/mellertime/3576636619/',
+			'width' => 950,
+			'height' => 250,
+		),
 	);
 	
 	// pick a header
