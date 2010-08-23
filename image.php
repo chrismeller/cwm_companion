@@ -97,6 +97,24 @@
 			'width' => 950,
 			'height' => 250,
 		),
+		array(
+			'img' => 'images/headers/header_river.jpg',
+			'flickr' => 'http://www.flickr.com/photos/mellertime/3565811710/',
+			'width' => 950,
+			'height' => 250,
+		),
+		array(
+			'img' => 'images/headers/header_seagull2.jpg',
+			'flickr' => 'http://www.flickr.com/photos/mellertime/4485317349/',
+			'width' => 950,
+			'height' => 250,
+		),
+		array(
+			'img' => 'images/headers/header_duck.jpg',
+			'flickr' => 'http://www.flickr.com/photos/mellertime/4710275503/',
+			'width' => 950,
+			'height' => 250,
+		),
 	);
 	
 	// pick a header
