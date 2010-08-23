@@ -61,6 +61,12 @@
 			'width' => 950,
 			'height' => 250,
 		),
+		array(
+			'img' => 'images/headers/header_kite.jpg',
+			'flickr' => 'http://www.flickr.com/photos/mellertime/4480681848/',
+			'width' => 950,
+			'height' => 250,
+		),
 	);
 	
 	// pick a header
