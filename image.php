@@ -49,6 +49,12 @@
 			'width' => 950,
 			'height' => 250,
 		),
+		array(
+			'img' => 'images/headers/header_shoreline2.jpg',
+			'flickr' => 'http://www.flickr.com/photos/mellertime/4485969242/',
+			'width' => 950,
+			'height' => 250,
+		),
 	);
 	
 	// pick a header
