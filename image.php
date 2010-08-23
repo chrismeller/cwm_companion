@@ -67,6 +67,12 @@
 			'width' => 950,
 			'height' => 250,
 		),
+		array(
+			'img' => 'images/headers/header_birds.jpg',
+			'flickr' => 'http://www.flickr.com/photos/mellertime/4480577438/',
+			'width' => 950,
+			'height' => 250,
+		),
 	);
 	
 	// pick a header
