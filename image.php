@@ -115,6 +115,12 @@
 			'width' => 950,
 			'height' => 250,
 		),
+		array(
+			'img' => 'images/headers/header_barn_storm.jpg',
+			'flickr' => 'http://www.flickr.com/photos/mellertime/4921598903/',
+			'width' => 950,
+			'height' => 250,
+		),
 	);
 	
 	// pick a header
