@@ -335,6 +335,7 @@ h3.widget-title {
 	color: #333333;
 	padding-top: 0.5em;
 	padding-left: 1em;	/* line it up with the body copy */
+	padding-bottom: 0.5em;
 }
 
 #footer a {
