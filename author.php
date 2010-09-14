@@ -1,5 +1,57 @@
 <?php
 /**
+ * The template for displaying Archive pages.
+ *
+ * Used to display archive-type pages if nothing more specific matches a query.
+ * For example, puts together date-based pages if no date.php file exists.
+ *
+ * Learn more: http://codex.wordpress.org/Template_Hierarchy
+ *
+ * @package WordPress
+ * @subpackage Twenty_Ten
+ * @since Twenty Ten 1.0
+ */
+?>
+
+<?php get_header(); ?>
+
+		<div id="content" class="span-18" role="main">
+			<div class="wrap">
+			
+				<?php 
+				
+					if ( have_posts() ) {
+						the_post();
+					}
+				
+				?>
+				
+				<h1 class="page-title author"><?php printf( __( 'Author Archives: %s', 'twentyten' ), "<span class='vcard'><a class='url fn n' href='" . get_author_posts_url( get_the_author_meta( 'ID' ) ) . "' title='" . esc_attr( get_the_author() ) . "' rel='me'>" . get_the_author() . "</a></span>" ); ?></h1>
+				
+				<?php 
+				
+					rewind_posts();
+				
+				?>
+
+				<?php
+				/* Run the loop to output the posts.
+				 * If you want to overload this in a child theme then include a file
+				 * called loop-index.php and that will be used instead.
+				 */
+				 get_template_part( 'loop', 'author' );
+				?>
+				
+			</div>
+		</div><?php /* div#content */ ?>
+
+<?php get_sidebar(); ?>
+<?php get_footer(); ?>
+
+<?php return; ?>
+
+<?php
+/**
  * The template for displaying Author Archive pages.
  *
  * @package WordPress
