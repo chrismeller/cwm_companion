@@ -33,6 +33,9 @@
 			
 			echo '<ul>';
 
+			// delete any previously cached archives
+			wp_cache_delete( 'wp_get_archives', 'general' );
+			
 			// cause wordpress to cache the raw array so we can snag it
 			wp_get_archives( 'type=monthly&show_post_count=true&limit=8&echo=0' );
 
