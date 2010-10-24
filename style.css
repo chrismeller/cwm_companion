@@ -187,9 +187,18 @@ body {
 	color: #333333;	
 }
 
-#content h2 {
+#content h2.entry-title {
 	margin-bottom: 0;
 	line-height: 1em;
+}
+
+/* scale down h1 and h2 in the entry content so they're not larger than the entry title */
+#content .entry-content h1 {
+	font-size: 2em;
+}
+
+#content .entry-content h2 {
+	font-size: 1.8em;
 }
 
 #content h2.entry-title a {
