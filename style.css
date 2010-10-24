@@ -199,6 +199,11 @@ body {
 
 #content .entry-content h2 {
 	font-size: 1.8em;
+	margin-bottom: 0.4em;
+}
+
+#content .entry-content h5 {
+	margin-bottom: 0.3em;
 }
 
 #content h2.entry-title a {
