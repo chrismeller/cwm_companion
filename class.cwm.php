@@ -4,7 +4,10 @@
 		
 		public function init ( ) {
 			
-			wp_enqueue_script( 'chrismkii_main', get_bloginfo('template_directory') . '/js/main.js', array('jquery'), false, true );
+			// don't load the main js script if it's the admin
+			if ( is_admin() == false ) {
+				wp_enqueue_script( 'chrismkii_main', get_bloginfo('template_directory') . '/js/main.js', array('jquery'), false, true );
+			}
 
 			if ( function_exists('wp_register_sidebar_widget') ) {
 				wp_register_sidebar_widget( 'archives', 'Chris mk II: Archives', array( 'CWM', 'archives' ) );
