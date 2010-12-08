@@ -335,6 +335,12 @@ h3.widget-title {
 	-moz-user-select: none;
 }
 
+#flickr li {
+	display: inline;
+	
+	padding-right: 10px;
+}
+
 #sidebar a {
 	color: #3a6c93;
 	text-decoration: none;
