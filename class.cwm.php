@@ -173,8 +173,8 @@
 			
 			$return = array();
 			
-			// return 3 random objects
-			for ( $i = 0; $i < 3; $i++ ) {
+			// return 4 random objects
+			for ( $i = 0; $i < 4; $i++ ) {
 				// pop an item off the end of the array
 				$return[] = array_pop( $items );
 			}
