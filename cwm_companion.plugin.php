@@ -17,6 +17,19 @@
 			
 			$rules[] = $rule;
 			
+			$rule = new RewriteRule( array(
+				'name' => 'cwm_display_flickr_thumbnail',
+				'parse_regex' => '#^flickr_thumbnail/(?P<guid>\w+)?/?$#i',
+				'build_str' => 'flickr_thumbnail/{$guid}',
+				'handler' => 'UserThemeHandler',
+				'action' => 'display_flickr_thumbnail',
+				'rule_class' => RewriteRule::RULE_THEME,
+				'is_active' => true,
+				'description' => 'Display Flickr thumbnail from local cache',
+			) );
+			
+			$rules[] = $rule;
+			
 			return $rules;
 			
 		}
