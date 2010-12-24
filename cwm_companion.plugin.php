@@ -14,7 +14,7 @@
 			
 		}
 		
-		public static function filter_update ( ) {
+		public static function flickr_update ( ) {
 			
 			$feed = file_get_contents( 'http://api.flickr.com/services/feeds/photos_public.gne?id=27041953@N00&lang=en-us&format=rss_200' );
 			
