@@ -2,6 +2,89 @@
 
 	class CWM_Companion extends Plugin {
 		
+		public function action_plugin_activation ( $file ) {
+			
+			CronTab::add_hourly_cron( 'cwm_flickr_updater', array( 'CWM_Companion', 'flickr_update' ) );
+			
+		}
+		
+		public function action_plugin_deactivation ( $file ) {
+			
+			CronTab::delete_cronjob( 'cwm_flickr_updater' );
+			
+		}
+		
+		public static function filter_update ( ) {
+			
+			$feed = file_get_contents( 'http://api.flickr.com/services/feeds/photos_public.gne?id=27041953@N00&lang=en-us&format=rss_200' );
+			
+			if ( !$feed ) {
+				return false;
+			}
+			
+			$xml = new SimpleXMLElement( $feed );
+			
+			if ( count( $xml->channel->item ) < 1 ) {
+				return false;
+			}
+			
+			$items = array();
+			
+			foreach ( $xml->channel->item as $item ) {
+				
+				if ( !preg_match('/<img src="([^"]+)/si', $item->description, $matches) ) {
+					continue;
+				}
+				
+				// for reference: large => _m, proportional => _t, square => _s
+				$suffix = '_s';
+				
+				$i = array(
+					'title' => (string)$item->title,
+					'link' => (string)$item->link,
+					'thumbnail' => str_replace( '_m.jpg', $suffix . '.jpg', $matches[1] ),
+					'image' => str_replace( '_m.jpg', '.jpg', $matches[1] ),
+					'description' => (string)$item->description,
+					'pubDate' => (string)$item->pubDate,
+					'guid' => (string)$item->guid,
+					'thumbnail_local' => '',
+				);
+				
+				// if we don't already have this thumbnail cached
+				if ( !Cache::has( 'cwm:flickr_thumbnail_' . md5( $i['guid'] ) ) ) {
+					
+					// snag the thumbnail and cache it locally
+					$thumb = file_get_contents( $i['thumbnail'] );
+					
+					if ( $thumb !== false ) {
+						
+						// the thumbnail shouldn't change, so cache it for a long time - and keep it after expiration anyway
+						Cache::set( 'cwm:flickr_thumbnail_' . md5( $i['guid'] ), $thumb, HabariDateTime::DAY * 7, true );
+						
+					}
+					else {
+						// we couldn't get this thumbnail, so skip this item for now
+						continue;
+					}
+					
+				}
+				
+				// set the local thumbnail element
+				$i['thumbnail_local'] = URL::get( 'cwm_display_flickr_thumbnail', array( 'guid' => md5( $i['guid'] ) ) );
+				
+				// add the item to the list
+				$items[] = $i;
+				
+			}
+			
+			// cache the output for 12 hours
+			Cache::set( 'cwm:flickr_items', $items, HabariDateTime::HOUR * 12 );
+			
+			// cron completed successfully
+			return true;
+			
+		}
+		
 		public function filter_rewrite_rules ( $rules ) {
 			
 			$rule = new RewriteRule( array(
