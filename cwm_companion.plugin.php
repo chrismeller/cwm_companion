@@ -4,6 +4,7 @@
 		
 		public function action_plugin_activation ( $file ) {
 			
+			CronTab::add_single_cron( 'cwm_flickr_updater-single', array( 'CWM_Companion', 'flickr_update' ), HabariDateTime::date_create() );
 			CronTab::add_hourly_cron( 'cwm_flickr_updater', array( 'CWM_Companion', 'flickr_update' ) );
 			
 		}
