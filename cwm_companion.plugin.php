@@ -20,12 +20,14 @@
 			$feed = file_get_contents( 'http://api.flickr.com/services/feeds/photos_public.gne?id=27041953@N00&lang=en-us&format=rss_200' );
 			
 			if ( !$feed ) {
+				EventLog::log( _t( 'Unable to fetch feed contents for Flickr items.', 'cwm' ) );
 				return false;
 			}
 			
 			$xml = new SimpleXMLElement( $feed );
 			
 			if ( count( $xml->channel->item ) < 1 ) {
+				EventLog::log( _t( 'Invalid feed results for Flickr items.', 'cwm' ) );
 				return false;
 			}
 			
@@ -80,6 +82,8 @@
 			
 			// cache the output for 12 hours
 			Cache::set( 'cwm:flickr_items', $items, HabariDateTime::HOUR * 12 );
+			
+			EventLog::log( _t( 'Flickr items updated', 'cwm' ) );
 			
 			// cron completed successfully
 			return true;
