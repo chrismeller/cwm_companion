@@ -126,7 +126,7 @@
 			
 			if ( isset( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] == 'on' ) {
 				
-				$host = Site::get_url('host');
+				$host = Site::get_url('hostname');
 				
 				$content = str_replace( 'http://' . $host, 'https://' . $host, $content );
 				
