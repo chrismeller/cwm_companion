@@ -62,7 +62,7 @@
 					if ( $thumb !== false ) {
 						
 						// the thumbnail shouldn't change, so cache it for a long time - and keep it after expiration anyway
-						Cache::set( 'cwm:flickr_thumbnail_' . md5( $i['guid'] ), $thumb, HabariDateTime::DAY * 7, true );
+						Cache::set( 'cwm:flickr_thumbnail_' . md5( $i['guid'] ), $thumb, HabariDateTime::MONTH, true );
 						
 					}
 					else {
