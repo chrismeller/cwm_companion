@@ -12,6 +12,7 @@
 		public function action_plugin_deactivation ( $file ) {
 			
 			CronTab::delete_cronjob( 'cwm_flickr_updater' );
+			CronTab::delete_cronjob( 'cwm_flickr_update-single' );
 			
 		}
 		
