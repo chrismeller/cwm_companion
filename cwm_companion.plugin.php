@@ -123,6 +123,28 @@
 			
 		}
 		
+		public function action_post_insert_after ( $post ) {
+			
+			$this->expire_archives();
+			
+		}
+		
+		public function action_post_update_status ( $post, $old_value = null, $new_value = null ) {
+			
+			$this->expire_archives();
+			
+		}
+		
+		private function expire_archives ( ) {
+			
+			// the archives pages
+			Cache::expire( 'cwm:archives:*', 'glob' );
+			
+			// the archives block
+			Cache::expire( 'cwm:archives_block' );
+			
+		}
+		
 	}
 	
 ?>
