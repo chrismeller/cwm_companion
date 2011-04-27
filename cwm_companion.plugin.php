@@ -117,6 +117,17 @@
 				'description' => 'Display Flickr thumbnail from local cache',
 			) );
 			
+			$rule = new RewriteRule( array(
+				'name' => 'cwm_display_header',
+				'parse_regex' => '#^header?/?$#i',
+				'build_str' => 'banner',
+				'handler' => 'UserThemeHandler',
+				'action' => 'display_header',
+				'rule_class' => RewriteRule::RULE_THEME,
+				'is_active' => true,
+				'description' => 'Display header image',
+			) );
+			
 			$rules[] = $rule;
 			
 			return $rules;
