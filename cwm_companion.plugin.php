@@ -150,6 +150,8 @@
 				'description' => 'Display Flickr thumbnail from local cache',
 			) );
 			
+			$rules[] = $rule;
+			
 			$rule = new RewriteRule( array(
 				'name' => 'cwm_display_header',
 				'parse_regex' => '#^header.json?/?$#i',
