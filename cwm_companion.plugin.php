@@ -141,8 +141,8 @@
 			
 			$rule = new RewriteRule( array(
 				'name' => 'cwm_display_flickr_thumbnail',
-				'parse_regex' => '#^flickr_thumbnail/(?P<guid>\w+)?/?$#i',
-				'build_str' => 'flickr_thumbnail/{$guid}',
+				'parse_regex' => '#^flickr_thumbnail/(?P<guid>\w+).jpg$#i',
+				'build_str' => 'flickr_thumbnail/{$guid}.jpg',
 				'handler' => 'UserThemeHandler',
 				'action' => 'display_flickr_thumbnail',
 				'rule_class' => RewriteRule::RULE_THEME,
