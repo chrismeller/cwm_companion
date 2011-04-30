@@ -16,6 +16,39 @@
 			
 		}
 		
+		public function filter_plugin_config ( $actions, $plugin_id ) {
+			
+			if ( $plugin_id == $this->plugin_id() ) {
+				
+				$actions[] = _t('Update Flickr Cache');
+				
+			}
+			
+			return $actions;
+			
+		}
+		
+		public function action_plugin_ui ( $plugin_id, $action ) {
+			
+			if ( $plugin_id == $this->plugin_id() ) {
+			
+				switch ( $action ) {
+					
+					case _t('Update Flickr Cache'):
+						
+						self::flickr_update();
+						
+						Session::notice( _t('Flickr items updated!') );
+						Utils::redirect( URL::get( 'admin', 'page=plugins' ) );
+						
+						break;
+					
+				}
+				
+			}
+			
+		}
+		
 		public static function flickr_update ( ) {
 			
 			$feed = file_get_contents( 'http://api.flickr.com/services/feeds/photos_public.gne?id=27041953@N00&lang=en-us&format=rss_200' );
