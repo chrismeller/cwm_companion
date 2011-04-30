@@ -107,7 +107,7 @@
 				}
 				
 				// set the local thumbnail element
-				$i['thumbnail_local'] = URL::get( 'cwm_display_flickr_thumbnail', array( 'guid' => md5( $i['guid'] ) ) );
+				$i['thumbnail_local'] = URL::get( 'cwm_display_flickr_thumbnail', array( 'guid' => $i['guid'] ) );
 				
 				// add the item to the list
 				$items[] = $i;
