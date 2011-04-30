@@ -83,20 +83,20 @@
 					'image' => str_replace( '_m.jpg', '.jpg', $matches[1] ),
 					'description' => (string)$item->description,
 					'pubDate' => (string)$item->pubDate,
-					'guid' => (string)$item->guid,
+					'guid' => md5( (string)$item->guid ),
 					'thumbnail_local' => '',
 				);
 				
 				// if we don't already have this thumbnail cached
-				if ( !Cache::has( 'cwm:flickr_thumbnail_' . md5( $i['guid'] ) ) ) {
+				if ( !Cache::has( 'cwm:flickr_thumbnail_' . $i['guid'] ) ) {
 					
 					// snag the thumbnail and cache it locally
 					$thumb = file_get_contents( $i['thumbnail'] );
 					
 					if ( $thumb !== false ) {
 						
-						// the thumbnail shouldn't change, so cache it for a long time - and keep it after expiration anyway
-						Cache::set( 'cwm:flickr_thumbnail_' . md5( $i['guid'] ), $thumb, HabariDateTime::MONTH, true );
+						// the thumbnail shouldn't change, so cache it for a long time
+						Cache::set( 'cwm:flickr_thumbnail_' . $i['guid'], $thumb, HabariDateTime::MONTH );
 						
 					}
 					else {
