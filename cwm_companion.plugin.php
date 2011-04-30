@@ -119,8 +119,8 @@
 			
 			$rule = new RewriteRule( array(
 				'name' => 'cwm_display_header',
-				'parse_regex' => '#^header?/?$#i',
-				'build_str' => 'banner',
+				'parse_regex' => '#^header.json?/?$#i',
+				'build_str' => 'header.json',
 				'handler' => 'UserThemeHandler',
 				'action' => 'display_header',
 				'rule_class' => RewriteRule::RULE_THEME,
