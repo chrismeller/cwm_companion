@@ -21,6 +21,7 @@
 			if ( $plugin_id == $this->plugin_id() ) {
 				
 				$actions[] = _t('Update Flickr Cache');
+				$actions[] = _t('Configure');
 				
 			}
 			
@@ -42,6 +43,19 @@
 						Utils::redirect( URL::get( 'admin', 'page=plugins' ) );
 						
 						break;
+						
+					case _t('Configure'):
+						
+						$ui = new FormUI( 'cwm_companion' );
+						$ui->append( 'text', 'cwm_companion__cloudfiles_user', 'option:cwm_companion__cloudfiles_user', _t('Cloud Files Username'));
+						$ui->append( 'text', 'cwm_companion__cloudfiles_api_key', 'option:cwm_companion__cloudfiles_api_key', _t('Cloud Files API Key'));
+						$ui->append( 'text', 'cwm_companion__cloudfiles_container', 'option:cwm_companion__cloudfiles_container', _t('Cloud Files Container'));
+						
+						$ui->append( 'submit', 'save', _t( 'Save' ) );
+						
+						$ui->out();
+						
+						break;
 					
 				}
 				
@@ -50,6 +64,17 @@
 		}
 		
 		public static function flickr_update ( ) {
+			
+			// if we've configured cloudfiles
+			if ( Options::get( 'cwm_companion__cloudfiles_user' ) != null ) {
+				$cloud_files = true;
+				
+				// include the cloudfiles API
+				include('vendor/php-cloudfiles/cloudfiles.php');
+			}
+			else {
+				$cloud_files = false;
+			}
 			
 			$feed = file_get_contents( 'http://api.flickr.com/services/feeds/photos_public.gne?id=27041953@N00&lang=en-us&format=rss_200' );
 			
@@ -63,6 +88,20 @@
 			if ( count( $xml->channel->item ) < 1 ) {
 				EventLog::log( _t( 'Invalid feed results for Flickr items.', 'cwm' ) );
 				return false;
+			}
+			
+			if ( $cloud_files ) {
+				// now that we've got feed contents, take the time to authenticate to cloudfiles
+				$auth = new CF_Authentication( Options::get( 'cwm_companion__cloudfiles_user' ), Options::get( 'cwm_companion__cloudfiles_api_key' ) );
+				$auth->authenticate();
+				
+				EventLog::log( _t('Successfully authenticated to Cloud Files'), 'info' );
+				
+				// and initialize the connection
+				$conn = new CF_Connection( $auth );
+				
+				// and get the container
+				$container = $conn->get_container( Options::get( 'cwm_companion__cloudfiles_container' ) );
 			}
 			
 			$items = array();
@@ -87,28 +126,60 @@
 					'thumbnail_local' => '',
 				);
 				
-				// if we don't already have this thumbnail cached
-				if ( !Cache::has( 'cwm:flickr_thumbnail_' . $i['guid'] ) ) {
+				// if we're using cloudfiles, caching is different
+				if ( $cloud_files ) {
 					
-					// snag the thumbnail and cache it locally
-					$thumb = file_get_contents( $i['thumbnail'] );
-					
-					if ( $thumb !== false ) {
+					// first see if we already have this one cached
+					try {
+						$object = $container->get_object( $i['guid'] . '.jpg' );
+					}
+					catch ( NoSuchObjectException $e ) {
 						
-						// the thumbnail shouldn't change, so cache it for a long time
-						Cache::set( 'cwm:flickr_thumbnail_' . $i['guid'], $thumb, HabariDateTime::MONTH );
+						// we don't have it, we need to store it
+						
+						// snag it
+						$thumb = file_get_contents( $i['thumbnail'] );
+						
+						// create the new object
+						$object = $container->create_object( $i['guid'] . '.jpg' );
+						
+						// put it
+						$object->write( $thumb );
 						
 					}
-					else {
-						// we couldn't get this thumbnail, so skip this item for now
-						continue;
-					}
+					
+					// now either way we should have an object
+					$i['thumbnail_local'] = $object->public_ssl_uri();
 					
 				}
+				else {
+					
+					// otherwise, fall back to local caching so nothing breaks
+					
+					// if we don't already have this thumbnail cached
+					if ( !Cache::has( 'cwm:flickr_thumbnail_' . $i['guid'] ) ) {
+						
+						// snag the thumbnail and cache it locally
+						$thumb = file_get_contents( $i['thumbnail'] );
+						
+						if ( $thumb !== false ) {
+							
+							// the thumbnail shouldn't change, so cache it for a long time
+							Cache::set( 'cwm:flickr_thumbnail_' . $i['guid'], $thumb, HabariDateTime::MONTH );
+							
+						}
+						else {
+							// we couldn't get this thumbnail, so skip this item for now
+							continue;
+						}
+						
+					}
 				
-				// set the local thumbnail element
-				$i['thumbnail_local'] = URL::get( 'cwm_display_flickr_thumbnail', array( 'guid' => $i['guid'] ) );
-				
+					// set the local thumbnail element
+					$i['thumbnail_local'] = URL::get( 'cwm_display_flickr_thumbnail', array( 'guid' => $i['guid'] ) );
+					
+				}
+					
 				// add the item to the list
 				$items[] = $i;
 				
