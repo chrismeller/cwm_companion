@@ -271,12 +271,20 @@
 		public function update_commit_stats ( ) {
 			
 			try {
-				$stats = RemoteRequest::get_contents( 'http://tools.chrismeller.com/commitstats/stats_last_52' );
+				$last_52 = RemoteRequest::get_contents( 'http://tools.chrismeller.com/commitstats/stats_last_52' );
+				$last_52 = json_decode( $last_52 );
 				
-				$stats = json_decode( $stats );
+				$this_week = RemoteRequest::get_contents( 'http://tools.chrismeller.com/commitstats/stats_this_week' );
+				$this_week = json_decode( $this_week );
+				
+				$total_this_week = RemoteRequest::get_contents( 'http://tools.chrismeller.com/commitstats/total_this_week' );
+				$total_this_week = json_decode( $total_this_week );
 				
 				// save the cache for 12 hours, just to make sure we don't run out of stats if we can't update one cron
-				Cache::set( 'cwm:commit_stats:stats_last_52', $stats, HabariDateTime::HOUR * 12 );
+				Cache::set( 'cwm:commit_stats:stats_last_52', $last_52, HabariDateTime::HOUR * 12 );
+				Cache::set( 'cwm:commit_stats:stats_this_week', $this_week, HabariDateTime::HOUR * 12 );
+				Cache::set( 'cwm:commit_stats:stats_total_this_week', $total_this_week, HabariDateTime::HOUR * 12 );
+				
 				Cache::set( 'cwm:commit_stats:last_update', HabariDateTime::date_create()->int, HabariDateTime::HOUR * 12 );
 			}
 			catch ( RemoteRequest_Timeout $e ) {
