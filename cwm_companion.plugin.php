@@ -27,6 +27,7 @@
 			if ( $plugin_id == $this->plugin_id() ) {
 				
 				$actions[] = _t('Update Flickr Cache');
+				$actions[] = _t('Update Commit Stats Cache');
 				$actions[] = _t('Configure');
 				
 			}
@@ -46,6 +47,15 @@
 						self::flickr_update();
 						
 						Session::notice( _t('Flickr items updated!') );
+						Utils::redirect( URL::get( 'admin', 'page=plugins' ) );
+						
+						break;
+						
+					case _t('Update Commit Stats Cache'):
+						
+						self::update_commit_stats();
+						
+						Session::notice( _t('Commit stats updated!') );
 						Utils::redirect( URL::get( 'admin', 'page=plugins' ) );
 						
 						break;
