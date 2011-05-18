@@ -7,12 +7,18 @@
 			CronTab::add_single_cron( 'cwm_flickr_updater-single', array( 'CWM_Companion', 'flickr_update' ), HabariDateTime::date_create() );
 			CronTab::add_hourly_cron( 'cwm_flickr_updater', array( 'CWM_Companion', 'flickr_update' ) );
 			
+			CronTab::add_single_cron( 'cwm_commit_stats-single', array( 'CWM_Companion', 'update_commit_stats' ), HabariDateTime::date_create() );
+			CronTab::add_hourly_cron( 'cwm_commit_stats', array( 'CWM_Companion', 'update_commit_stats' ) );
+			
 		}
 		
 		public function action_plugin_deactivation ( $file ) {
 			
 			CronTab::delete_cronjob( 'cwm_flickr_updater' );
 			CronTab::delete_cronjob( 'cwm_flickr_update-single' );
+			
+			CronTab::delete_cronjob( 'cwm_commit_stats' );
+			CronTab::delete_cronjob( 'cwm_commit_stats-single' );
 			
 		}
 		
@@ -259,6 +265,23 @@
 			
 			// the archives block
 			Cache::expire( 'cwm:archives_block' );
+			
+		}
+		
+		public function update_commit_stats ( ) {
+			
+			try {
+				$stats = RemoteRequest::get_contents( 'http://tools.chrismeller.com/commitstats/stats_last_52' );
+				
+				$stats = json_decode( $stats );
+				
+				// save the cache for 12 hours, just to make sure we don't run out of stats if we can't update one cron
+				Cache::set( 'cwm:commit_stats:stats_last_52', $stats, HabariDateTime::HOUR * 12 );
+				Cache::set( 'cwm:commit_stats:last_update', HabariDateTime::date_create()->int, HabariDateTime::HOUR * 12 );
+			}
+			catch ( RemoteRequest_Timeout $e ) {
+				// nothing, we just won't update this run
+			}
 			
 		}
 		
